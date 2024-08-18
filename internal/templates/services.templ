@@ -8,11 +8,11 @@ templ ServicesComponent(namespace string,services []string) {
             type="text"
             placeholder="Search for a service..."
             class="input input-bordered w-full mb-4"
-            id="cmdkInput"
+            id="cmdkInputService"
         />
 
         <div class="max-h-64 bg-base-200 rounded-box overflow-y-auto">
-            <ul class="menu menu-md bg-base-200 rounded-box w-full" id="cmdkList">
+            <ul class="menu menu-md bg-base-200 rounded-box w-full" id="cmdkListService">
             for _, service := range services {
                 <li>
                     <a 
@@ -32,18 +32,20 @@ templ ServicesComponent(namespace string,services []string) {
 
 <script type="text/javascript">
     // Check if this script has already been executed
+    if (!window.serviceFilterInitialized) {
         // Set a flag to avoid re-initialization
+        window.serviceFilterInitialized = true;
 
         // Get the input field and the list of items
-        const input = document.getElementById('cmdkInput');
-        const listItems = document.querySelectorAll('#cmdkList li');
+        const inputService = document.getElementById('cmdkInputService');
+        const listItemsServices = document.querySelectorAll('#cmdkListService li');
 
         // Add event listener for input changes
-        input.addEventListener('input', function() {
-            const query = input.value.toLowerCase();
+        inputService.addEventListener('inputService', function() {
+            const query = inputService.value.toLowerCase();
 
             // Filter through the list items
-            listItems.forEach(function(item) {
+            listItemsServices.forEach(function(item) {
                 const text = item.textContent.toLowerCase();
 
                 // Show or hide the item based on the query
@@ -54,5 +56,6 @@ templ ServicesComponent(namespace string,services []string) {
                 }
             });
         });
+    }
 </script>
 }

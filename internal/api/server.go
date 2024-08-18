@@ -114,9 +114,6 @@ func NewServer(config utils.Config) (*Server, error) {
 	// Set the router field of the Server struct to the newly created app router.
 	server.router = appRouter
 
-	/// test
-	server.proxyHub.NewProxy("wikipedia", "https://it.wikipedia.org/")
-	///
 	// Return the newly created Server struct.
 	return server, nil
 }

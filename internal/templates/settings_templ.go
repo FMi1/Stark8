@@ -31,20 +31,20 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center\"><div class=\"rounded-lg shadow-lg max-w-xs w-full mx-auto\"><form hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center\"><div class=\"rounded-lg shadow-lg max-w-xs w-full mx-auto\"><form id=\"creationForm\" hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs("/namespaces/" + namespace + "/services/" + service)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 11, Col: 78}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 11, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" hx-on=\"htmx:afterRequest: console.log(&#39;ciao&#39;)\"><!-- Input per il nome dello Stark8 --><div class=\"label\"><span class=\"label-text\">Inserisci il nome dello Stark8</span></div><input type=\"text\" id=\"name\" name=\"name\" class=\"input input-bordered w-full max-w-xs\" required><!-- Radio button per HTTP e HTTPS, adiacenti --><!-- Dropdown per la selezione della porta --><div class=\"label mt-4\"><span class=\"label-text\">Seleziona Porta</span></div><select id=\"port\" name=\"port\" class=\"select select-bordered w-full max-w-xs\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\"><!-- Input per il nome dello Stark8 --><div class=\"label\"><span class=\"label-text\">Stark8 name</span></div><input type=\"text\" id=\"name\" name=\"name\" class=\"input input-bordered w-full max-w-xs\" required><!-- Radio button per HTTP e HTTPS, adiacenti --><!-- Dropdown per la selezione della porta --><div class=\"label mt-4\"><span class=\"label-text\">Port</span></div><select id=\"port\" name=\"port\" class=\"select select-bordered w-full max-w-xs\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -93,7 +93,7 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select><fieldset class=\"mt-4\"><div class=\"label\"><span class=\"label-text\">Seleziona il protocollo</span></div><div class=\"flex items-center space-x-4 mt-2\"><div class=\"flex items-center\"><input id=\"http\" name=\"protocol\" type=\"radio\" value=\"HTTP\" class=\"radio radio-success\" checked=\"checked\"> <label for=\"http\" class=\"ml-2 block text-sm font-medium\">HTTP</label></div><div class=\"flex items-center\"><input id=\"https\" name=\"protocol\" type=\"radio\" value=\"HTTPS\" class=\"radio radio-success\" required> <label for=\"https\" class=\"ml-2 block text-sm font-medium\">HTTPS</label></div></div></fieldset><!-- Pulsante per inviare --><div class=\"mt-4\"><button type=\"submit\" class=\"btn btn-success rounded-lg\">Invia</button></div></form></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select><fieldset class=\"mt-4\"><div class=\"label\"><span class=\"label-text\">Protocol</span></div><div class=\"flex items-center space-x-4 mt-2\"><div class=\"flex items-center\"><input id=\"http\" name=\"protocol\" type=\"radio\" value=\"HTTP\" class=\"radio radio-success\" checked=\"checked\"> <label for=\"http\" class=\"ml-2 block text-sm font-medium\">HTTP</label></div><div class=\"flex items-center\"><input id=\"https\" name=\"protocol\" type=\"radio\" value=\"HTTPS\" class=\"radio radio-success\" required> <label for=\"https\" class=\"ml-2 block text-sm font-medium\">HTTPS</label></div></div></fieldset><!-- Pulsante per inviare --><div class=\"mt-4\"><button type=\"submit\" class=\"btn btn-success rounded-lg\">Create</button></div></form></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

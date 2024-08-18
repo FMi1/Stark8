@@ -8,10 +8,10 @@ import (
 templ SettingsComponent(namespace string, service string, ports []v1.ServicePort, errors map[string]bool, values map[string]string) {
     <div class="flex justify-center items-center">
         <div class="rounded-lg shadow-lg max-w-xs w-full mx-auto">
-            <form hx-post={"/namespaces/" + namespace + "/services/" + service} hx-swap="none" hx-on="htmx:afterRequest: console.log('ciao')">
+            <form id="creationForm" hx-post={"/namespaces/" + namespace + "/services/" + service} hx-swap="none">
                 <!-- Input per il nome dello Stark8 -->
                 <div class="label">
-                    <span class="label-text">Inserisci il nome dello Stark8</span>
+                    <span class="label-text">Stark8 name</span>
                 </div>
                 <input type="text" id="name" name="name" class="input input-bordered w-full max-w-xs" required/>
                 
@@ -19,7 +19,7 @@ templ SettingsComponent(namespace string, service string, ports []v1.ServicePort
                 
                 <!-- Dropdown per la selezione della porta -->
                 <div class="label mt-4">
-                    <span class="label-text">Seleziona Porta</span>
+                    <span class="label-text">Port</span>
                 </div>
                 <select id="port" name="port" class="select select-bordered w-full max-w-xs">
                     for _, port := range ports {
@@ -29,7 +29,7 @@ templ SettingsComponent(namespace string, service string, ports []v1.ServicePort
                 
                 <fieldset class="mt-4">
                     <div class="label">
-                        <span class="label-text">Seleziona il protocollo</span>
+                        <span class="label-text">Protocol</span>
                     </div>
                     <div class="flex items-center space-x-4 mt-2">
                         <div class="flex items-center">
@@ -46,7 +46,7 @@ templ SettingsComponent(namespace string, service string, ports []v1.ServicePort
                 <!-- Pulsante per inviare -->
                 <div class="mt-4">
                     <button type="submit" class="btn btn-success rounded-lg">
-                        Invia
+                        Create
                     </button>
                 </div>
             </form>

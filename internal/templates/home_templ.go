@@ -51,7 +51,7 @@ func Home(items map[string]map[string]string) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(key)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 26, Col: 93}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 23, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -62,35 +62,10 @@ func Home(items map[string]map[string]string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div id=\"toast\" class=\"toast toast-end hidden\"><div class=\"alert alert-success\"><span>Stark8 create successfully.</span></div></div></body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		return templ_7745c5c3_Err
 	})
 }
-
-//             <!-- Card 1 -->
-
-//             <!-- Card 2 -->
-//             <a href="#" class="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
-//                 <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover">
-//                 <div class="p-4">
-//                     <h2 class="text-xl font-semibold text-center">Card Title 2</h2>
-//                 </div>
-//             </a>
-//             <!-- Card 3 -->
-//             <a href="#" class="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
-//                 <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover">
-//                 <div class="p-4">
-//                     <h2 class="text-xl font-semibold text-center">Card Title 3</h2>
-//                 </div>
-//             </a>
-//             <!-- Card 4 -->
-//             <a href="#" class="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
-//                 <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover">
-//                 <div class="p-4">
-//                     <h2 class="text-xl font-semibold text-center">Card Title 4</h2>
-//                 </div>
-//             </a>
-//             <!-- Add more cards as needed -->

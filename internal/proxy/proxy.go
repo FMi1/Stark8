@@ -15,6 +15,7 @@ import (
 type Proxy struct {
 	url   *url.URL
 	proxy *httputil.ReverseProxy
+	// logoUrl *url.URL
 }
 
 // redirectStatusCodes is a package-level variable containing HTTP redirection status codes

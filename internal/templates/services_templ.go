@@ -26,7 +26,7 @@ func ServicesComponent(namespace string, services []string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center bg-opacity-50\"><div class=\"w-full max-w-lg p-4 rounded-lg shadow-lg\"><input type=\"text\" placeholder=\"Search for a service...\" class=\"input input-bordered w-full mb-4\" id=\"cmdkInput\"><div class=\"max-h-64 bg-base-200 rounded-box overflow-y-auto\"><ul class=\"menu menu-md bg-base-200 rounded-box w-full\" id=\"cmdkList\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center bg-opacity-50\"><div class=\"w-full max-w-lg p-4 rounded-lg shadow-lg\"><input type=\"text\" placeholder=\"Search for a service...\" class=\"input input-bordered w-full mb-4\" id=\"cmdkInputService\"><div class=\"max-h-64 bg-base-200 rounded-box overflow-y-auto\"><ul class=\"menu menu-md bg-base-200 rounded-box w-full\" id=\"cmdkListService\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -62,7 +62,7 @@ func ServicesComponent(namespace string, services []string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></div></div></div><script type=\"text/javascript\">\n    // Check if this script has already been executed\n        // Set a flag to avoid re-initialization\n\n        // Get the input field and the list of items\n        const input = document.getElementById('cmdkInput');\n        const listItems = document.querySelectorAll('#cmdkList li');\n\n        // Add event listener for input changes\n        input.addEventListener('input', function() {\n            const query = input.value.toLowerCase();\n\n            // Filter through the list items\n            listItems.forEach(function(item) {\n                const text = item.textContent.toLowerCase();\n\n                // Show or hide the item based on the query\n                if (text.includes(query)) {\n                    item.style.display = 'block';\n                } else {\n                    item.style.display = 'none';\n                }\n            });\n        });\n</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></div></div></div><script type=\"text/javascript\">\n    // Check if this script has already been executed\n    if (!window.serviceFilterInitialized) {\n        // Set a flag to avoid re-initialization\n        window.serviceFilterInitialized = true;\n\n        // Get the input field and the list of items\n        const inputService = document.getElementById('cmdkInputService');\n        const listItemsServices = document.querySelectorAll('#cmdkListService li');\n\n        // Add event listener for input changes\n        inputService.addEventListener('inputService', function() {\n            const query = inputService.value.toLowerCase();\n\n            // Filter through the list items\n            listItemsServices.forEach(function(item) {\n                const text = item.textContent.toLowerCase();\n\n                // Show or hide the item based on the query\n                if (text.includes(query)) {\n                    item.style.display = 'block';\n                } else {\n                    item.style.display = 'none';\n                }\n            });\n        });\n    }\n</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
