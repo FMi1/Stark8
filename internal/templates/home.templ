@@ -1,0 +1,60 @@
+package templates
+
+templ Home(items map[string]map[string]string) {
+    @headerComponent("Services")
+    <body class="min-h-screen bg-gradient-to-b">
+        <!-- Header with Links -->
+
+    <div class="container mx-auto px-4 py-8 flex justify-center">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="card bg-neutral bg-clip-border shadow-lg rounded-lg hover:shadow-xl text-neutral-content w-72">
+                  <div class="card-body items-center text-center">
+                    <h2 class="card-title">Application!</h2>
+                    <p>Create a new starK8.</p>
+                    <div class="card-actions justify-end">
+                      <button class="btn btn-success rounded-lg" onclick="my_modal_1.showModal()" hx-get="/new" hx-trigger="click" hx-target="#my_modal_1" hx-swap="innerHTML">Create</button>
+                        <dialog id="my_modal_1" class="modal modal-top py-16 flex justify-center rounded-lg">
+                        </dialog>
+                    </div>
+                  </div>
+                </div>
+                for key, value := range items {
+                    <a href={templ.SafeURL(value["externalURL"])} class="block bg-neutral text-neutral-content shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
+                        <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover"/>
+                        <div class="p-4">
+                            <h2 class="text-xl font-semibold text-center text-white-800">{key}</h2>
+                        </div>
+                    </a>
+                    
+                }
+            </div>
+        </div>
+    </body>
+}
+//             <!-- Card 1 -->
+
+//             <!-- Card 2 -->
+//             <a href="#" class="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
+//                 <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover">
+//                 <div class="p-4">
+//                     <h2 class="text-xl font-semibold text-center">Card Title 2</h2>
+//                 </div>
+//             </a>
+//             <!-- Card 3 -->
+//             <a href="#" class="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
+//                 <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover">
+//                 <div class="p-4">
+//                     <h2 class="text-xl font-semibold text-center">Card Title 3</h2>
+//                 </div>
+//             </a>
+//             <!-- Card 4 -->
+//             <a href="#" class="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300">
+//                 <img src="https://via.placeholder.com/400x200" alt="Card Image" class="w-full h-32 object-cover">
+//                 <div class="p-4">
+//                     <h2 class="text-xl font-semibold text-center">Card Title 4</h2>
+//                 </div>
+//             </a>
+//             <!-- Add more cards as needed -->
+
+

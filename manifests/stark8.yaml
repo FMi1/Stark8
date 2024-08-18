@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: stark8
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: stark8
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: stark8
+roleRef:
+  name: stark8
+  kind: ClusterRole
+subjects:
+  - kind: ServiceAccount
+    name: stark8
+    namespace: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stark8
+  labels:
+    app: stark8
+spec:
+  selector:
+    app: stark8
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stark8
+  labels:
+    app: stark8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stark8
+  template:
+    metadata:
+      labels:
+        app: stark8
+    spec:
+      serviceAccountName: stark8
+      containers:
+      - name: stark8
+        image: localhost/stark8:v0.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: stark8
+        volumeMounts:
+        - name: app-env
+          mountPath: /app/app.env
+          subPath: app.env
+      volumes:
+      - name: app-env
+        configMap:
+          name: stark8
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stark8
+data:
+  app.env: |
+    TOKEN_SIMMETRIC_KEY=12345678901234567890123456789012
+    HOST=stark8.127.0.0.1.nip.io:8080
+    TOKEN_DURATION=15m
+

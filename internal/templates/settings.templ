@@ -1,0 +1,55 @@
+package templates
+
+import (
+    "strconv"
+    v1 "k8s.io/api/core/v1"
+)
+
+templ SettingsComponent(namespace string, service string, ports []v1.ServicePort, errors map[string]bool, values map[string]string) {
+    <div class="flex justify-center items-center">
+        <div class="rounded-lg shadow-lg max-w-xs w-full mx-auto">
+            <form hx-post={"/namespaces/" + namespace + "/services/" + service} hx-swap="none" hx-on="htmx:afterRequest: console.log('ciao')">
+                <!-- Input per il nome dello Stark8 -->
+                <div class="label">
+                    <span class="label-text">Inserisci il nome dello Stark8</span>
+                </div>
+                <input type="text" id="name" name="name" class="input input-bordered w-full max-w-xs" required/>
+                
+                <!-- Radio button per HTTP e HTTPS, adiacenti -->
+                
+                <!-- Dropdown per la selezione della porta -->
+                <div class="label mt-4">
+                    <span class="label-text">Seleziona Porta</span>
+                </div>
+                <select id="port" name="port" class="select select-bordered w-full max-w-xs">
+                    for _, port := range ports {
+                        <option value={strconv.Itoa(int(port.Port))}>{port.Name}: {strconv.Itoa(int(port.Port))} </option>
+                    }
+                </select>
+                
+                <fieldset class="mt-4">
+                    <div class="label">
+                        <span class="label-text">Seleziona il protocollo</span>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-2">
+                        <div class="flex items-center">
+                            <input id="http" name="protocol" type="radio" value="HTTP" class="radio radio-success" checked="checked"/>
+                            <label for="http" class="ml-2 block text-sm font-medium">HTTP</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="https" name="protocol" type="radio" value="HTTPS" class="radio radio-success" required/>
+                            <label for="https" class="ml-2 block text-sm font-medium">HTTPS</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Pulsante per inviare -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success rounded-lg">
+                        Invia
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+}

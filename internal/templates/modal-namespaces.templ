@@ -1,0 +1,12 @@
+package templates
+
+templ ModalBodyNamespacesComponent(namespaces []string) { 
+            <ul id="steps-htmx" class="steps steps-vertical lg:steps-horizontal">
+                <li class="step step-success">Select a Namespace</li>
+                <li class="step">Select a Service</li>
+                <li class="step">Settings</li>
+                // <li class="step" data-content="✓">Create</li>
+            </ul>
+            <div class="divider divider-neutral"></div>
+            @NamespacesComponent(namespaces)
+}
