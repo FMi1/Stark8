@@ -44,12 +44,12 @@ func NewServer(config utils.Config) (*Server, error) {
 		config:     config,
 	}
 
-	kubernetsClient, err := k8sclient.NewClient()
-	if err != nil {
-		return nil, err
-	}
+	// kubernetsClient, err := k8sclient.NewClient()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	server.k8sClientset = kubernetsClient
+	// server.k8sClientset = kubernetsClient
 	// Create a new router for handling requests that are not for any subdomain.
 	appRouter := gin.Default()
 
@@ -114,6 +114,7 @@ func NewServer(config utils.Config) (*Server, error) {
 	// Set the router field of the Server struct to the newly created app router.
 	server.router = appRouter
 
+	server.proxyHub.NewProxy("wiki", "http://wiki.localhost:8080")
 	// Return the newly created Server struct.
 	return server, nil
 }

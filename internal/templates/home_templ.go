@@ -30,7 +30,7 @@ func Home(items map[string]map[string]string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body class=\"min-h-screen bg-gradient-to-b\"><!-- Header with Links --><div class=\"container mx-auto px-4 py-8 flex justify-center\"><div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6\"><div class=\"card bg-neutral bg-clip-border shadow-lg rounded-lg hover:shadow-xl text-neutral-content w-72\"><div class=\"card-body items-center text-center\"><h2 class=\"card-title\">Application!</h2><p>Create a new starK8.</p><div class=\"card-actions justify-end\"><button class=\"btn btn-success rounded-lg\" onclick=\"my_modal_1.showModal()\" hx-get=\"/new\" hx-trigger=\"click\" hx-target=\"#my_modal_1\" hx-swap=\"innerHTML\">Create</button> <dialog id=\"my_modal_1\" class=\"modal modal-top py-16 flex justify-center rounded-lg\"></dialog></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body class=\"min-h-screen bg-gradient-to-b\"><!-- Header with Links --><div class=\"container mx-auto px-4 py-8 flex justify-center\"><div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6\"><div class=\"card bg-neutral bg-clip-border shadow-lg rounded-lg hover:shadow-xl text-neutral-content sm:w-full h-auto min-h-[200px]\"><div class=\"card-body items-center text-center\"><h2 class=\"card-title\">Application!</h2><p>Create a new starK8.</p><div class=\"card-actions justify-end\"><button class=\"btn btn-success rounded-lg\" onclick=\"my_modal_1.showModal()\" hx-get=\"/new\" hx-trigger=\"click\" hx-target=\"#my_modal_1\" hx-swap=\"innerHTML\">Create</button> <dialog id=\"my_modal_1\" class=\"modal modal-top py-16 flex justify-center rounded-lg\"></dialog></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -44,14 +44,14 @@ func Home(items map[string]map[string]string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"block bg-neutral text-neutral-content shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300\"><img src=\"https://via.placeholder.com/400x200\" alt=\"Card Image\" class=\"w-full h-32 object-cover\"><div class=\"p-4\"><h2 class=\"text-xl font-semibold text-center text-white-800\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"block bg-neutral text-neutral-content shadow-lg rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transform transition duration-300 sm:w-full h-auto min-h-[200px]\"><img src=\"https://via.placeholder.com/400x200\" alt=\"Card Image\" class=\"w-full h-32 object-cover\"><div class=\"p-4\"><h2 class=\"text-xl font-semibold text-center text-white-800\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(key)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 23, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 23, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
