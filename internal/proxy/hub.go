@@ -35,10 +35,21 @@ func (p *ProxyHub) GetListProxy(elementsPerPage int, pageNumber int) (map[string
 	proxies := make(map[string]map[string]string)
 	for _, key := range keys {
 		proxy := p.hub[key]
-		proxies[key] = map[string]string{
-			"internalURL": proxy.url.String(),
-			"externalURL": fmt.Sprintf("//%s.%s", key, p.hostname),
+		if proxy.logoUrl == nil {
+			proxies[key] = map[string]string{
+				"internalURL": proxy.url.String(),
+				"externalURL": fmt.Sprintf("//%s.%s", key, p.hostname),
+				"color":       proxy.color,
+			}
+		} else {
+			proxies[key] = map[string]string{
+				"internalURL": proxy.url.String(),
+				"externalURL": fmt.Sprintf("//%s.%s", key, p.hostname),
+				"color":       proxy.color,
+				"logoURL":     proxy.logoUrl.String(),
+			}
 		}
+
 	}
 	return proxies, nil
 }

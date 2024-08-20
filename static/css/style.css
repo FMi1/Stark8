@@ -25,19 +25,14 @@
   }
   
   .delete-button:hover {
-    width: 40px;
     border-radius: 50px;
     transition-duration: 0.5s;
     background-color: rgb(255, 69, 69);
     align-items: center;
-    margin-top: 3px;
-    margin-right: 3px;
   }
   
   .delete-button:hover .delete-svgIcon {
-    width: 20px;
     transition-duration: 0.5s;
-
   }
   
   
@@ -80,17 +75,13 @@
   }
   
   .edit-button:hover {
-    width: 40px;
     border-radius: 50px;
     transition-duration: 0.5s;
     background-color: #F4AC45;
     align-items: center;
-    margin-top: 3px;
-    margin-left: 3px;
   }
   
   .edit-button:hover .edit-svgIcon {
-    width: 20px;
     transition-duration: 0.5s;
 
   }

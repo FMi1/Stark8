@@ -114,7 +114,16 @@ func NewServer(config utils.Config) (*Server, error) {
 	// Set the router field of the Server struct to the newly created app router.
 	server.router = appRouter
 
-	server.proxyHub.NewProxy("wikiaaaaaaa", "http://wiki.localhost:8080")
+	server.proxyHub.NewProxy("argo", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("argo2", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("grafana", "https://grafana.com/")
+	server.proxyHub.NewProxy("argo23", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("argo2131", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("argo3wqs", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("argodqwdqw", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("argo2cds223", "https://argo-cd.readthedocs.io/en/stable/")
+	server.proxyHub.NewProxy("argo3cwwde", "https://argo-cd.readthedocs.io/en/stable/")
+
 	// Return the newly created Server struct.
 	return server, nil
 }

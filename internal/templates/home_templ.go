@@ -30,30 +30,76 @@ func Home(items map[string]map[string]string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body class=\"min-h-screen bg-gradient-to-b\"><!-- Header with Links --><div class=\"container mx-auto px-4 py-6 flex justify-center\"><div class=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6\"><button class=\"overflow-hidden flex justify-center items-center relative w-full h-32 bg-neutral text-white border-none rounded-md text-3xl font-bold cursor-pointer shadow-lg hover:shadow-xl z-10 group\" onclick=\"my_modal_1.showModal()\" hx-get=\"/new\" hx-trigger=\"click\" hx-target=\"#my_modal_1\" hx-swap=\"innerHTML\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50px\" height=\"50px\" viewBox=\"0 0 24 24\" class=\"stroke-zinc-400 fill-none group-hover:fill-zinc-800 group-active:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300\"><path d=\"M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z\" stroke-width=\"1.5\"></path> <path d=\"M8 12H16\" stroke-width=\"1.5\"></path> <path d=\"M12 16V8\" stroke-width=\"1.5\"></path></svg> <span class=\"absolute w-full h-full top-0 left-0 bg-blue-200 rounded-md transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-center\"></span> <span class=\"absolute w-full h-full top-0 left-0 bg-blue-300 rounded-md transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-center\"></span> <span class=\"absolute w-full h-full top-0 left-0 bg-blue-500 rounded-md transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-center\"></span> <span class=\"group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute z-10\">Create a Stark8!</span></button> <dialog id=\"my_modal_1\" class=\"modal modal-top py-16 flex justify-center rounded-md\"></dialog> ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body class=\"min-h-screen bg-gradient-to-b\"><!-- Header with Links --><div class=\"p-1 flex flex-wrap items-center justify-center\"><div class=\"flex justify-center items-center w-full\"><button class=\"overflow-hidden flex justify-center items-center relative w-60 h-20 bg-none text-white border-none rounded-md text-xl font-bold cursor-pointer shadow-lg hover:shadow-xl z-10 group\" onclick=\"my_modal_1.showModal()\" hx-get=\"/new\" hx-trigger=\"click\" hx-target=\"#my_modal_1\" hx-swap=\"innerHTML\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"36px\" height=\"36px\" viewBox=\"0 0 24 24\" class=\"stroke-zinc-400 fill-none group-hover:fill-zinc-800 group-active:stroke-zinc-200 group-active:fill-zinc-600 group-active:duration-0 duration-300\"><path d=\"M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z\" stroke-width=\"1.5\"></path> <path d=\"M8 12H16\" stroke-width=\"1.5\"></path> <path d=\"M12 16V8\" stroke-width=\"1.5\"></path></svg> <span class=\"absolute w-full h-full top-0 left-0 bg-blue-200 rounded-md transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-center\"></span> <span class=\"absolute w-full h-full top-0 left-0 bg-blue-300 rounded-md transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-center\"></span> <span class=\"absolute w-full h-full top-0 left-0 bg-blue-500 rounded-md transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-center\"></span> <span class=\"group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute z-10\">Create a Stark8!</span></button> <dialog id=\"my_modal_1\" class=\"modal modal-top py-16 flex justify-center rounded-md\"></dialog></div><!-- Example grid item -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for key, value := range items {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("      <a href=\"")
+			var templ_7745c5c3_Var2 = []any{value["color"] + " bg-gradient-to-r flex-shrink-0 m-4 relative overflow-hidden rounded-lg max-w-xs shadow-lg group"}
+			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var2 templ.SafeURL = templ.SafeURL(value["externalURL"])
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var2)))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"relative group duration-500 cursor-pointer group overflow-hidden relative text-gray-50 h-32 w-56  rounded-md hover:duration-700 duration-700\"><div class=\"w-full h-full text-gray-800\"><div class=\"flex h-full bg-neutral flex-row justify-between\"><button class=\"edit-button\"><svg class=\"edit-svgIcon\" viewBox=\"0 0 512 512\"><path d=\"M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"></path></svg></button> <button class=\"delete-button\"><svg class=\"delete-svgIcon\" viewBox=\"0 0 448 512\"><path d=\"M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z\"></path></svg></button></div></div><div class=\"absolute bg-neutral h-20 -bottom-0 w-full p-3 flex flex-col gap-1\"><div class=\"badge bg-blue-500 text-gray-800 rounded-md gap-2 pt-0.5\">webapp</div><span class=\"font-bold text-3xl\">")
+			var templ_7745c5c3_Var3 templ.SafeURL = templ.SafeURL(value["externalURL"])
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var3)))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(key)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 72, Col: 46}
+				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var2).String())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 1, Col: 0}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"flex h-full flex-row justify-between\"><button class=\"edit-button\"><svg class=\"edit-svgIcon\" viewBox=\"0 0 512 512\"><path d=\"M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"></path></svg></button> <button class=\"delete-button\"><svg class=\"delete-svgIcon\" viewBox=\"0 0 448 512\"><path d=\"M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z\"></path></svg></button></div><svg class=\"absolute bottom-0 left-0 mb-4 scale-100 group-hover:scale-[1.4] transition-transform\" viewBox=\"0 0 375 283\" fill=\"none\" style=\"opacity: 0.1;\"></svg><div class=\"relative pt-6 px-6 flex items-center justify-center group-hover:scale-105 transition-transform\"><div class=\"block absolute w-32 h-32 bottom-0 left-0 -mb-16 ml-2\" style=\"background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;\"></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			if val, ok := value["logoURL"]; ok {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"relative w-24\" src=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var5 string
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(val)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 101, Col: 43}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-16 w-full bg-gray-300 flex items-center justify-center\"></div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"relative text-white px-4 pb-4 mt-4\"><div class=\"flex justify-between\"><span class=\"block font-semibold text-2xl\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(key)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/home.templ`, Line: 108, Col: 55}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -62,7 +108,7 @@ func Home(items map[string]map[string]string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div id=\"toast\" class=\"toast toast-end hidden\"><div class=\"alert alert-success\"><span>Stark8 create successfully.</span></div></div></body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div id=\"toast\" class=\"toast toast-end hidden\"><div class=\"alert alert-success\"><span>Stark8 create successfully.</span></div></div></body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

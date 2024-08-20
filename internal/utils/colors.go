@@ -1,0 +1,3 @@
+package utils
+
+var TailwindColors = []string{"slate-400", "slate-500", "gray-400", "gray-500", "zinc-400", "zinc-500", "neutral-400", "neutral-500", "stone-400", "stone-500", "red-400", "red-500", "orange-400", "orange-500", "amber-400", "amber-500", "yellow-400", "yellow-500", "lime-400", "lime-500", "green-400", "green-500", "emerald-400", "emerald-500", "teal-400", "teal-500", "cyan-400", "cyan-500", "sky-400", "sky-500", "blue-400", "blue-500", "indigo-400", "indigo-500", "violet-400", "violet-500", "purple-400", "purple-500", "fuchsia-400", "fuchsia-500", "pink-400", "pink-500", "rose-400", "rose-500"}
