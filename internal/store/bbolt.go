@@ -1,7 +1,6 @@
 package store
 
 import (
-	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -76,12 +75,6 @@ func (b *Bbolt) CreateUser(up UserParams) error {
 		}
 		return users.Put(key, buf)
 	})
-}
-
-func itob(v int) []byte {
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, uint64(v))
-	return b
 }
 
 func (b *Bbolt) DeleteUser(username string) error {
