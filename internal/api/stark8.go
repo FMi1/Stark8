@@ -3,6 +3,8 @@ package api
 import (
 	"fmt"
 	"net/http"
+	ginrender "stark8/internal/render"
+	"stark8/internal/templates"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +13,7 @@ type createStark8Request struct {
 	Name     string `form:"name" binding:"required"`
 	Protocol string `form:"protocol" binding:"required"`
 	Port     int    `form:"port" binding:"required"`
+	Logo     string `form:"selectedLogoName" binding:"required"`
 }
 
 func (s *Server) createStark8Request(c *gin.Context) {
@@ -29,21 +32,37 @@ func (s *Server) createStark8Request(c *gin.Context) {
 		return
 	}
 	url := fmt.Sprintf("%s://%s.%s:%d", f.Protocol, c.Param("service"), c.Param("namespace"), f.Port)
-	if err := s.proxyHub.NewProxy(f.Name, url); err != nil {
+	if err := s.proxyHub.NewProxy(f.Name, url, f.Logo); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Print the form data
+	req := &getStark8sRequest{
+		PageNumber: 1,
+	}
+	proxies, err := s.proxyHub.GetListProxy(10, req.PageNumber)
+	if err != nil {
+		c.JSON(http.StatusCreated, f)
+		return
+	}
+	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.Stark8sComponent(proxies))
+	c.Render(http.StatusCreated, r)
+}
 
-	// Return a JSON response with the form data
-	c.JSON(http.StatusOK, f)
-	// r := ginrender.New(c.Request.Context(), http.StatusOK, templates.CreateErrorBadge())
-	// c.Render(http.StatusOK, r)
+type getStark8sRequest struct {
+	PageNumber int `form:"page" binding:"min=1"`
+}
 
-	// Uncomment this part when implementing the service handler logic
-	// if err := s.proxyHub.NewProxy(f.Name, f.URL); err != nil {
-	// 	c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	return
-	// }
+func (s *Server) getStark8sRequest(c *gin.Context) {
+	// TODO: add service handler
+	req := &getStark8sRequest{
+		PageNumber: 1,
+	}
+	proxies, err := s.proxyHub.GetListProxy(10, req.PageNumber)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.Stark8sComponent(proxies))
+	c.Render(http.StatusOK, r)
 }

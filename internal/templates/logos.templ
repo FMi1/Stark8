@@ -1,0 +1,10 @@
+package templates
+
+
+templ LogosComponent(logos []string) {
+    for _, logo := range logos {
+        <div class="logo-item cursor-pointer p-1 border rounded hover:border-blue-500" onclick={templ.ComponentScript{Call: "selectLogo('"+logo+"')"}}>
+            <img src={"/static/logo/"+logo} class="w-full h-auto object-contain"/>
+        </div>
+    } 
+}

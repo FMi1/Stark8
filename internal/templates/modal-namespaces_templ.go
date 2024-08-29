@@ -26,7 +26,7 @@ func ModalBodyNamespacesComponent(namespaces []string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<ul id=\"steps-htmx\" class=\"steps steps-vertical lg:steps-horizontal\"><li class=\"step step-success\">Select a Namespace</li><li class=\"step\">Select a Service</li><li class=\"step\">Settings</li></ul><div class=\"divider divider-neutral\"></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center\"><ul id=\"steps-htmx\" class=\"steps steps-vertical lg:steps-horizontal\"><li class=\"step step-success\">Select a Namespace</li><li class=\"step\">Select a Service</li><li class=\"step\">Settings</li></ul></div><div class=\"divider divider-neutral\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,36 +1,33 @@
 package templates
 
-templ NamespacesComponent(namespaces []string) { 
-
-<div class="flex justify-center items-center bg-opacity-50">
-    <div class="w-full max-w-lg p-4 rounded-lg shadow-lg">
-        <input
-            type="text"
-            placeholder="Search for a namespace..."
-            class="input input-bordered w-full mb-4"
-            id="cmdkInput"
-        />
-
-        <div class="max-h-64 bg-base-200 rounded-box overflow-y-auto">
-            <ul class="menu menu-md bg-base-200 rounded-box w-full" id="cmdkList">
-            for _, namespace := range namespaces {
-                <li>
-                    <a 
-                        hx-get={"/namespaces/" + namespace + "/services"}
-                        hx-trigger="click" 
-                        hx-target="#modalBody" 
-                        hx-swap="innerHTML"
-                    >
-                        {namespace}
-                    </a>
-                </li>
-            }
-            </ul>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
+templ NamespacesComponent(namespaces []string) {
+	<div class="flex justify-center items-center bg-opacity-50">
+		<div class="w-full max-w-lg p-4 rounded-lg">
+			<input
+				type="text"
+				placeholder="Search for a namespace..."
+				class="input input-bordered w-full mb-4"
+				id="cmdkInput"
+			/>
+			<div class="max-h-64 bg-base-200 rounded-box overflow-y-auto">
+				<ul class="menu menu-md bg-base-200 rounded-box w-full" id="cmdkList">
+					for _, namespace := range namespaces {
+						<li>
+							<a
+								hx-get={ "/namespaces/" + namespace + "/services" }
+								hx-trigger="click"
+								hx-target="#modalBody"
+								hx-swap="innerHTML"
+							>
+								{ namespace }
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
     // Check if this script has already been executed
     if (!window.namespaceFilterInitialized) {
         // Set a flag to avoid re-initialization

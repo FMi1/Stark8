@@ -1,55 +1,99 @@
 package templates
 
 import (
-    "strconv"
-    v1 "k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
+	"strconv"
 )
 
 templ SettingsComponent(namespace string, service string, ports []v1.ServicePort, errors map[string]bool, values map[string]string) {
-    <div class="flex justify-center items-center">
-        <div class="rounded-lg shadow-lg max-w-xs w-full mx-auto">
-            <form id="creationForm" hx-post={"/namespaces/" + namespace + "/services/" + service} hx-swap="none">
-                <!-- Input per il nome dello Stark8 -->
-                <div class="label">
-                    <span class="label-text">Stark8 name</span>
-                </div>
-                <input type="text" id="name" name="name" class="input input-bordered w-full max-w-xs" required/>
-                
-                <!-- Radio button per HTTP e HTTPS, adiacenti -->
-                
-                <!-- Dropdown per la selezione della porta -->
-                <div class="label mt-4">
-                    <span class="label-text">Port</span>
-                </div>
-                <select id="port" name="port" class="select select-bordered w-full max-w-xs">
-                    for _, port := range ports {
-                        <option value={strconv.Itoa(int(port.Port))}>{port.Name}: {strconv.Itoa(int(port.Port))} </option>
-                    }
-                </select>
-                
-                <fieldset class="mt-4">
-                    <div class="label">
-                        <span class="label-text">Protocol</span>
-                    </div>
-                    <div class="flex items-center space-x-4 mt-2">
-                        <div class="flex items-center">
-                            <input id="http" name="protocol" type="radio" value="HTTP" class="radio radio-success" checked="checked"/>
-                            <label for="http" class="ml-2 block text-sm font-medium">HTTP</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="https" name="protocol" type="radio" value="HTTPS" class="radio radio-success" required/>
-                            <label for="https" class="ml-2 block text-sm font-medium">HTTPS</label>
-                        </div>
-                    </div>
-                </fieldset>
+	<div class="flex justify-center items-center">
+		<div class="rounded-lg  max-w-xs w-full mx-auto">
+			<form id="creationForm" hx-post={ "/namespaces/" + namespace + "/services/" + service } hx-target="#stark8">
+				<!-- Input for Stark8 name -->
+				<div class="label">
+					<span class="label-text">Stark8 name</span>
+				</div>
+				<input type="text" id="name" name="name" class="input input-bordered w-full max-w-xs" required/>
+				<!-- Radio button for HTTP and HTTPS -->
+				<!-- Dropdown for port selection -->
+				<div class="label mt-4">
+					<span class="label-text">Port</span>
+				</div>
+				<select id="port" name="port" class="select select-bordered w-full max-w-xs">
+					for _, port := range ports {
+						<option value={ strconv.Itoa(int(port.Port)) }>{ port.Name }: { strconv.Itoa(int(port.Port)) }</option>
+					}
+				</select>
+				<fieldset class="mt-4">
+					<div class="label">
+						<span class="label-text">Protocol</span>
+					</div>
+					<div class="flex items-center space-x-4 mt-2">
+						<div class="flex items-center">
+							<input id="http" name="protocol" type="radio" value="http" class="radio radio-success" checked="checked"/>
+							<label for="http" class="ml-2 block text-sm font-medium">HTTP</label>
+						</div>
+						<div class="flex items-center">
+							<input id="https" name="protocol" type="radio" value="https" class="radio radio-success" required/>
+							<label for="https" class="ml-2 block text-sm font-medium">HTTPS</label>
+						</div>
+					</div>
+				</fieldset>
+				<!-- Button to open the logo search modal -->
+				<div class="mt-4 flex items-center space-x-2">
+					<button type="button" class="btn btn-primary rounded-lg" onclick="openLogoModal()">
+						Search Logos
+					</button>
+					<input type="text" name="selectedLogoName" id="selectedLogoName" class="input text-gray-600" value="" readonly/>
+				</div>
+				<!-- Submit button -->
+				<div class="mt-4">
+					<button type="submit" class="btn btn-success rounded-lg">
+						Create
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- Modal for searching logos -->
+	<div id="logoModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+		<div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+			<div class="flex justify-between items-center">
+				<h2 class="text-lg font-bold">Search Logos</h2>
+				<button class="btn btn-sm btn-circle btn-ghost" onclick="closeLogoModal()">✕</button>
+			</div>
+			<div class="mt-4">
+				<input type="text" id="logoSearch" class="input input-bordered w-full" name="logoSearch" hx-post="/logos" hx-trigger="load, keyup changed delay:500ms" hx-target="#logoGrid" placeholder="Search..."/>
+			</div>
+			<div class="grid grid-cols-4 gap-4 mt-4 max-h-64 overflow-y-auto" id="logoGrid">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+        function openLogoModal() {
+            document.getElementById('logoModal').classList.remove('hidden');
+        }
 
-                <!-- Pulsante per inviare -->
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-success rounded-lg">
-                        Create
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+        function closeLogoModal() {
+            document.getElementById('logoModal').classList.add('hidden');
+        }
+
+        function filterLogos() {
+            const searchValue = document.getElementById('logoSearch').value.toLowerCase();
+            const logos = document.querySelectorAll('.logo-item');
+            logos.forEach(logo => {
+                const altText = logo.querySelector('img').alt.toLowerCase();
+                if (altText.includes(searchValue)) {
+                    logo.style.display = '';
+                } else {
+                    logo.style.display = 'none';
+                }
+            });
+        }
+
+        function selectLogo(logoName) {
+            document.getElementById('selectedLogoName').value = logoName;
+            closeLogoModal();
+        }
+    </script>
 }

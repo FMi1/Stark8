@@ -26,7 +26,7 @@ func ServicesComponent(namespace string, services []string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center bg-opacity-50\"><div class=\"w-full max-w-lg p-4 rounded-lg shadow-lg\"><input type=\"text\" placeholder=\"Search for a service...\" class=\"input input-bordered w-full mb-4\" id=\"cmdkInputService\"><div class=\"max-h-64 bg-base-200 rounded-box overflow-y-auto\"><ul class=\"menu menu-md bg-base-200 rounded-box w-full\" id=\"cmdkListService\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center bg-opacity-50\"><div class=\"w-full max-w-lg p-4 rounded-lg\"><input type=\"text\" placeholder=\"Search for a service...\" class=\"input input-bordered w-full mb-4\" id=\"cmdkInputService\"><div class=\"max-h-64 bg-base-200 rounded-box overflow-y-auto\"><ul class=\"menu menu-md bg-base-200 rounded-box w-full\" id=\"cmdkListService\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -38,7 +38,7 @@ func ServicesComponent(namespace string, services []string) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs("/namespaces/" + namespace + "/services/" + service)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/services.templ`, Line: 19, Col: 83}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/services.templ`, Line: 17, Col: 68}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -51,7 +51,7 @@ func ServicesComponent(namespace string, services []string) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(service)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/services.templ`, Line: 24, Col: 32}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/services.templ`, Line: 22, Col: 17}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

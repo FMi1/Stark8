@@ -2,26 +2,18 @@ package proxy
 
 import (
 	"crypto/tls"
-	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"stark8/internal/utils"
 	"strings"
-	"time"
-
-	"golang.org/x/exp/rand"
-	"golang.org/x/net/html"
 )
 
 // Proxy represents a reverse proxy with its associated URL
 type Proxy struct {
-	url     *url.URL
-	proxy   *httputil.ReverseProxy
-	logoUrl *url.URL
-	color   string
+	url   *url.URL
+	proxy *httputil.ReverseProxy
+	logo  string
 }
 
 // redirectStatusCodes is a package-level variable containing HTTP redirection status codes
@@ -43,18 +35,17 @@ func isRedirect(statusCode int) bool {
 }
 
 // NewProxy creates a new proxy and adds it to the ProxyHub
-func (p *ProxyHub) NewProxy(name string, urlStr string) error {
+func (p *ProxyHub) NewProxy(name string, urlStr string, logo string) error {
 	backendURL, err := url.Parse(urlStr)
 	if err != nil {
 		log.Printf("Error parsing URL: %v\n", err)
 		return err
 	}
-
-	transport := http.DefaultTransport.(*http.Transport).Clone()      // 1
-	transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true} // 2
+	transport := http.DefaultTransport.(*http.Transport).Clone()
+	transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 
 	proxy := &httputil.ReverseProxy{
-		Transport: transport, // 3
+		Transport: transport,
 		Rewrite: func(r *httputil.ProxyRequest) {
 			rewriteRequest(r, backendURL)
 		},
@@ -63,16 +54,10 @@ func (p *ProxyHub) NewProxy(name string, urlStr string) error {
 		},
 	}
 
-	logoURL, err := dummyCall(backendURL)
-	if err != nil {
-		log.Printf("Error during dummy call: %v\n", err)
-	}
-	randomColor := "from-" + utils.TailwindColors[rand.Intn(len(utils.TailwindColors))] + " to-" + utils.TailwindColors[rand.Intn(len(utils.TailwindColors))]
 	p.hub[name] = Proxy{
-		url:     backendURL,
-		proxy:   proxy,
-		logoUrl: logoURL,
-		color:   randomColor,
+		url:   backendURL,
+		proxy: proxy,
+		logo:  logo,
 	}
 
 	return nil
@@ -84,10 +69,6 @@ func (p *ProxyHub) NewProxy(name string, urlStr string) error {
 func rewriteRequest(r *httputil.ProxyRequest, backendURL *url.URL) {
 	r.SetXForwarded()
 	r.SetURL(backendURL)
-	fmt.Printf("%s - - [%s] \"%s %s %s\" %dus\n", strings.Split(r.In.RemoteAddr, ":")[0], time.Now().Format("02/Jan/2006:15:04:05 -0700"), r.In.Method, r.Out.URL.Path, r.In.Proto, time.Since(time.Now()))
-	fmt.Printf("%s - - [%s] Proxy Request to: %s %s %dus\n", strings.Split(r.In.RemoteAddr, ":")[0], time.Now().Format("02/Jan/2006:15:04:05 -0700"), r.In.Method, r.Out.URL, time.Since(time.Now()))
-
-	fmt.Println("Rewriting request to:", r.Out.URL)
 	r.Out.Header = r.In.Header
 }
 
@@ -96,16 +77,34 @@ func modifyResponse(r *http.Response, name string, backendURL *url.URL, hostname
 	if isRedirect(r.StatusCode) {
 		location := r.Header.Get("Location")
 		locationURL, err := url.Parse(location)
+		log.Println("Redirect Location:", locationURL.String(), "Backend:", backendURL.String())
 		if err != nil {
 			log.Printf("Error parsing Location header: %v\n", err)
 			return err
 		}
-
+		if locationURL.Scheme != backendURL.Scheme {
+			backendURL.Scheme = locationURL.Scheme
+		}
 		if locationURL.Host == backendURL.Host {
 			locationURL.Host = name + "." + hostname
-			locationURL.Scheme = "http"
+			locationURL.Scheme = "http" // Cambia schema in base a TLS
 			r.Header.Set("Location", locationURL.String())
 		}
+	}
+	//// TODO: rimuovi l'attributo Secure perche siamo in http per ora
+	// Modifica i cookie `Set-Cookie` per rimuovere l'attributo `Secure`
+	setCookies := r.Header.Values("Set-Cookie")
+	for i, cookie := range setCookies {
+		// Se il cookie contiene l'attributo Secure, lo rimuove
+		if strings.Contains(cookie, "Secure") {
+			modifiedCookie := strings.ReplaceAll(cookie, "; Secure", "")
+			setCookies[i] = modifiedCookie
+		}
+	}
+
+	// Se è stata fatta una modifica, aggiorna l'header `Set-Cookie`
+	if len(setCookies) > 0 {
+		r.Header["Set-Cookie"] = setCookies
 	}
 
 	return nil
@@ -113,104 +112,4 @@ func modifyResponse(r *http.Response, name string, backendURL *url.URL, hostname
 
 func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	p.proxy.ServeHTTP(w, r)
-}
-
-// dummyCall performs a dummy HTTP call to find an element with "logo" in its class, id or link.
-// It follows redirects and handles them appropriately.
-func dummyCall(backendURL *url.URL) (*url.URL, error) {
-	// Create a custom HTTP client to handle redirects manually
-	client := &http.Client{
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			if len(via) >= 3 {
-				return fmt.Errorf("stopped after 3 redirects")
-			}
-			// If redirected, update backendURL to the new location
-			newURL, err := url.Parse(req.URL.String())
-			if err != nil {
-				return err
-			}
-			*backendURL = *newURL
-			return nil
-		},
-	}
-
-	// Perform the request
-	resp, err := client.Get(backendURL.String())
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	// Read the response body
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	// Parse the HTML document
-	doc, err := html.Parse(strings.NewReader(string(body)))
-	if err != nil {
-		return nil, err
-	}
-
-	var logoURL *url.URL
-	var firstPngURL *url.URL
-
-	// Function to recursively find elements with "logo" or first PNG image
-	var findLogo func(*html.Node)
-	findLogo = func(n *html.Node) {
-		if n.Type == html.ElementNode {
-			// Check if the element has "logo" in its attributes
-			for _, attr := range n.Attr {
-				if strings.Contains(attr.Val, "logo") {
-					for _, attr := range n.Attr {
-						if strings.HasSuffix(attr.Val, ".png") && isInternalURL(attr.Val, backendURL) {
-							logoURL, _ = backendURL.Parse(attr.Val)
-							return
-						}
-					}
-				}
-			}
-			// Check if it's an image and store the first PNG found
-			if n.Data == "img" {
-				for _, attr := range n.Attr {
-					if strings.HasSuffix(attr.Val, ".png") && isInternalURL(attr.Val, backendURL) {
-						if firstPngURL == nil {
-							firstPngURL, _ = backendURL.Parse(attr.Val)
-						}
-					}
-				}
-			}
-		}
-		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			findLogo(c)
-		}
-	}
-
-	findLogo(doc)
-
-	// Return the found logo URL or the first PNG URL
-	if logoURL != nil {
-		return logoURL, nil
-	}
-	if firstPngURL != nil {
-		return firstPngURL, nil
-	}
-	return nil, nil
-}
-
-// isInternalURL checks if a given URL is internal based on the hostname of the backend URL.
-func isInternalURL(link string, backendURL *url.URL) bool {
-	parsedURL, err := url.Parse(link)
-	if err != nil {
-		return false
-	}
-
-	// If the parsed URL doesn't have a hostname, it is a relative URL and thus internal
-	if parsedURL.Hostname() == "" {
-		return true
-	}
-
-	// Otherwise, compare the hostname with the backend URL's hostname
-	return parsedURL.Hostname() == backendURL.Hostname()
 }

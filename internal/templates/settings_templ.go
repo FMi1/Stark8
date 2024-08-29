@@ -31,20 +31,20 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center\"><div class=\"rounded-lg shadow-lg max-w-xs w-full mx-auto\"><form id=\"creationForm\" hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex justify-center items-center\"><div class=\"rounded-lg  max-w-xs w-full mx-auto\"><form id=\"creationForm\" hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs("/namespaces/" + namespace + "/services/" + service)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 11, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 11, Col: 88}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\"><!-- Input per il nome dello Stark8 --><div class=\"label\"><span class=\"label-text\">Stark8 name</span></div><input type=\"text\" id=\"name\" name=\"name\" class=\"input input-bordered w-full max-w-xs\" required><!-- Radio button per HTTP e HTTPS, adiacenti --><!-- Dropdown per la selezione della porta --><div class=\"label mt-4\"><span class=\"label-text\">Port</span></div><select id=\"port\" name=\"port\" class=\"select select-bordered w-full max-w-xs\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#stark8\"><!-- Input for Stark8 name --><div class=\"label\"><span class=\"label-text\">Stark8 name</span></div><input type=\"text\" id=\"name\" name=\"name\" class=\"input input-bordered w-full max-w-xs\" required><!-- Radio button for HTTP and HTTPS --><!-- Dropdown for port selection --><div class=\"label mt-4\"><span class=\"label-text\">Port</span></div><select id=\"port\" name=\"port\" class=\"select select-bordered w-full max-w-xs\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -56,7 +56,7 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(int(port.Port)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 26, Col: 67}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 24, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -69,7 +69,7 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(port.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 26, Col: 79}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 24, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -82,7 +82,7 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(int(port.Port)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 26, Col: 111}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/settings.templ`, Line: 24, Col: 98}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -93,7 +93,7 @@ func SettingsComponent(namespace string, service string, ports []v1.ServicePort,
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select><fieldset class=\"mt-4\"><div class=\"label\"><span class=\"label-text\">Protocol</span></div><div class=\"flex items-center space-x-4 mt-2\"><div class=\"flex items-center\"><input id=\"http\" name=\"protocol\" type=\"radio\" value=\"HTTP\" class=\"radio radio-success\" checked=\"checked\"> <label for=\"http\" class=\"ml-2 block text-sm font-medium\">HTTP</label></div><div class=\"flex items-center\"><input id=\"https\" name=\"protocol\" type=\"radio\" value=\"HTTPS\" class=\"radio radio-success\" required> <label for=\"https\" class=\"ml-2 block text-sm font-medium\">HTTPS</label></div></div></fieldset><!-- Pulsante per inviare --><div class=\"mt-4\"><button type=\"submit\" class=\"btn btn-success rounded-lg\">Create</button></div></form></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</select><fieldset class=\"mt-4\"><div class=\"label\"><span class=\"label-text\">Protocol</span></div><div class=\"flex items-center space-x-4 mt-2\"><div class=\"flex items-center\"><input id=\"http\" name=\"protocol\" type=\"radio\" value=\"http\" class=\"radio radio-success\" checked=\"checked\"> <label for=\"http\" class=\"ml-2 block text-sm font-medium\">HTTP</label></div><div class=\"flex items-center\"><input id=\"https\" name=\"protocol\" type=\"radio\" value=\"https\" class=\"radio radio-success\" required> <label for=\"https\" class=\"ml-2 block text-sm font-medium\">HTTPS</label></div></div></fieldset><!-- Button to open the logo search modal --><div class=\"mt-4 flex items-center space-x-2\"><button type=\"button\" class=\"btn btn-primary rounded-lg\" onclick=\"openLogoModal()\">Search Logos</button> <input type=\"text\" name=\"selectedLogoName\" id=\"selectedLogoName\" class=\"input text-gray-600\" value=\"\" readonly></div><!-- Submit button --><div class=\"mt-4\"><button type=\"submit\" class=\"btn btn-success rounded-lg\">Create</button></div></form></div></div><!-- Modal for searching logos --><div id=\"logoModal\" class=\"fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden\"><div class=\"bg-white p-6 rounded-lg shadow-lg max-w-lg w-full\"><div class=\"flex justify-between items-center\"><h2 class=\"text-lg font-bold\">Search Logos</h2><button class=\"btn btn-sm btn-circle btn-ghost\" onclick=\"closeLogoModal()\">✕</button></div><div class=\"mt-4\"><input type=\"text\" id=\"logoSearch\" class=\"input input-bordered w-full\" name=\"logoSearch\" hx-post=\"/logos\" hx-trigger=\"load, keyup changed delay:500ms\" hx-target=\"#logoGrid\" placeholder=\"Search...\"></div><div class=\"grid grid-cols-4 gap-4 mt-4 max-h-64 overflow-y-auto\" id=\"logoGrid\"></div></div></div><script type=\"text/javascript\">\n        function openLogoModal() {\n            document.getElementById('logoModal').classList.remove('hidden');\n        }\n\n        function closeLogoModal() {\n            document.getElementById('logoModal').classList.add('hidden');\n        }\n\n        function filterLogos() {\n            const searchValue = document.getElementById('logoSearch').value.toLowerCase();\n            const logos = document.querySelectorAll('.logo-item');\n            logos.forEach(logo => {\n                const altText = logo.querySelector('img').alt.toLowerCase();\n                if (altText.includes(searchValue)) {\n                    logo.style.display = '';\n                } else {\n                    logo.style.display = 'none';\n                }\n            });\n        }\n\n        function selectLogo(logoName) {\n            document.getElementById('selectedLogoName').value = logoName;\n            closeLogoModal();\n        }\n    </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

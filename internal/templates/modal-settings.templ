@@ -1,13 +1,15 @@
 package templates
+
 import v1 "k8s.io/api/core/v1"
 
-
-templ ModalBodySettingsComponent(namespace string, service string,ports []v1.ServicePort, errors map[string]bool,values map[string]string) { 
-            <ul id="steps-htmx" class="steps steps-vertical lg:steps-horizontal">
-                <li class="step step-success">Select a Namespace</li>
-                <li class="step step-success">Select a Service</li>
-                <li class="step step-success">Settings</li>
-            </ul>
-            <div class="divider divider-neutral"></div>
-            @SettingsComponent(namespace,service,ports,errors,values)
+templ ModalBodySettingsComponent(namespace string, service string, ports []v1.ServicePort, errors map[string]bool, values map[string]string) {
+	<div class="flex justify-center">
+		<ul id="steps-htmx" class="steps steps-vertical lg:steps-horizontal">
+			<li class="step step-success">Select a Namespace</li>
+			<li class="step step-success">Select a Service</li>
+			<li class="step step-success">Settings</li>
+		</ul>
+	</div>
+	<div class="divider divider-neutral"></div>
+	@SettingsComponent(namespace, service, ports, errors, values)
 }

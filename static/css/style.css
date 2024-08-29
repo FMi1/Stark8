@@ -21,7 +21,7 @@
   }
   
   .delete-svgIcon path {
-    fill: white;
+    fill: rgb(100, 100, 100);
   }
   
   .delete-button:hover {
@@ -33,6 +33,7 @@
   
   .delete-button:hover .delete-svgIcon {
     transition-duration: 0.5s;
+    
   }
   
   
@@ -71,7 +72,7 @@
   
 
   .edit-svgIcon path {
-    fill: white;
+    fill: rgb(100, 100, 100);
   }
   
   .edit-button:hover {
