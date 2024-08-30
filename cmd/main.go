@@ -15,5 +15,9 @@ func main() {
 	if err != nil {
 		log.Fatal("Error creating server", err)
 	}
-	server.Start()
+	certFile, keyFile, err := utils.GenerateSelfSignedCert()
+	if err != nil {
+		log.Fatalf("Failed to generate self-signed certificate: %v", err)
+	}
+	server.Start(certFile, keyFile)
 }

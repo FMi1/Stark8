@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"stark8/internal/store"
 	"stark8/internal/utils"
@@ -33,25 +32,6 @@ func (s *Server) loginUserRequest(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	fmt.Println(req)
-
-	if req.Username == "admin" && req.Password == "admin" {
-		accessToken, err := s.TokenMaker.CreateToken(req.Username, s.config.TokenDuration)
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		//TODO: remove port
-		subdomainHost := strings.Split(s.config.Hostname, ":")[0]
-		c.SetCookie("stark8.token", accessToken, 3600, "/", "."+subdomainHost, false, true)
-		//// HERE
-		c.Header("HX-Redirect", "/") // Redirect to the home page
-		c.JSON(http.StatusOK, loginUserResponse{
-			AccessToken: accessToken,
-			User:        req.Username,
-		})
-		return
-	}
 
 	user, err := s.db.GetUser(req.Username)
 	if err != nil {
@@ -71,7 +51,7 @@ func (s *Server) loginUserRequest(c *gin.Context) {
 	//TODO: remove port
 	subdomainHost := strings.Split(s.config.Hostname, ":")[0]
 
-	c.SetCookie("stark8.token", accessToken, 3600, "/", "."+subdomainHost, false, true)
+	c.SetCookie("stark8.token", accessToken, 3600, "/", "."+subdomainHost, true, true)
 	//// HERE
 	c.Header("HX-Redirect", "/") // Redirect to the home page
 	c.JSON(http.StatusOK, loginUserResponse{
@@ -81,13 +61,13 @@ func (s *Server) loginUserRequest(c *gin.Context) {
 }
 
 func (s *Server) logoutUserRequest(c *gin.Context) {
-	c.SetCookie("stark8.token", "", -1, "/", s.config.Hostname, false, true)
+	c.SetCookie("stark8.token", "", -1, "/", s.config.Hostname, true, true)
 	c.JSON(http.StatusOK, gin.H{"success": true})
 }
 
 func (s *Server) createUserRequest(c *gin.Context) {
 	var req userSignupRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
+	if err := c.ShouldBind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -108,5 +88,18 @@ func (s *Server) createUserRequest(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"success": true})
+	accessToken, err := s.TokenMaker.CreateToken(req.Username, s.config.TokenDuration)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	//TODO: remove port
+	subdomainHost := strings.Split(s.config.Hostname, ":")[0]
+
+	c.SetCookie("stark8.token", accessToken, 3600, "/", "."+subdomainHost, true, true)
+	c.Header("HX-Redirect", "/")
+	c.JSON(http.StatusOK, loginUserResponse{
+		AccessToken: accessToken,
+		User:        req.Username,
+	})
 }

@@ -1,12 +1,12 @@
 package templates
 
-templ Login() {
+templ Signup() {
 	@headerComponent()
 	<div class="flex justify-center">
 		<div class="card w-full max-w-xs br-neutral shadow-xl">
 			<div class="card-body">
-				<h1 class="card-title text-center justify-center w-full">Log In</h1>
-				<form hx-post="/users/login">
+				<h1 class="card-title text-center justify-center w-full">Sign Un</h1>
+				<form hx-post="/users/sign_up">
 					<!-- Input per Email -->
 					<div class="form-control">
 						<label for="username" class="label">
@@ -24,14 +24,9 @@ templ Login() {
 					<!-- Link per Password Dimenticata -->
 					<!-- Pulsante per Inviare -->
 					<div class="form-control mt-8">
-						<button type="submit" class="btn btn-primary w-full">Log In</button>
+						<button type="submit" class="btn btn-secondary w-full">Sign Up</button>
 					</div>
 				</form>
-				<div class="flex items-center justify-between mt-4">
-					<span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-					<a class="text-xs text-gray-600 uppercase dark:text-gray-500 hover:underline" href="/users/sign_up">or sign up</a>
-					<span class="w-1/5 border-b dark:border-gray-400 md:w-1/4"></span>
-				</div>
 			</div>
 		</div>
 	</div>

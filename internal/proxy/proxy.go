@@ -87,7 +87,7 @@ func modifyResponse(r *http.Response, name string, backendURL *url.URL, hostname
 		}
 		if locationURL.Host == backendURL.Host {
 			locationURL.Host = name + "." + hostname
-			locationURL.Scheme = "http" // Cambia schema in base a TLS
+			locationURL.Scheme = "https" // Cambia schema in base a TLS
 			r.Header.Set("Location", locationURL.String())
 		}
 	}

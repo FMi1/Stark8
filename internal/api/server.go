@@ -27,13 +27,6 @@ type Server struct {
 	db           store.Database
 }
 
-// NewServer creates a new instance of the Server struct.
-// It initializes the proxyHub field with a new instance of the ProxyHub struct.
-// It then creates two new routers (appRouter and proxyRouter) and sets up a middleware
-// function to handle requests for any subdomain. If the request host contains the
-// provided hostname, the request is passed to the proxyRouter. If the request host
-// matches the provided hostname, the request is passed to the next handler. If the
-// request host does not contain the provided hostname, a 404 error is returned.
 func NewServer(config utils.Config) (*Server, error) {
 
 	// gin.SetMode(gin.ReleaseMode)
@@ -92,6 +85,7 @@ func NewServer(config utils.Config) (*Server, error) {
 
 		// If the host does not contain the provided hostname, return a 404 error.
 		c.JSON(http.StatusNotFound, gin.H{"Error": "Error hostname not found"})
+		c.Abort()
 	})
 
 	authRouter := appRouter.Group("/")
@@ -102,7 +96,7 @@ func NewServer(config utils.Config) (*Server, error) {
 	appRouter.POST("/users/login", server.loginUserRequest)
 	appRouter.GET("/users/login", server.getLoginUserRequest)
 
-	// appRouter.GET("/users/sign_up", server.getSignUpUserRequest)
+	appRouter.GET("/users/sign_up", server.getSignUpUserRequest)
 	appRouter.POST("/users/sign_up", server.createUserRequest)
 
 	appRouter.GET("/users/logout", server.logoutUserRequest)
@@ -132,7 +126,6 @@ func NewServer(config utils.Config) (*Server, error) {
 	// Set the router field of the Server struct to the newly created app router.
 	server.router = appRouter
 
-	// server.proxyHub.NewProxy("argo", "http://localhost:8080")
 	// Return the newly created Server struct.
 	return server, nil
 }
@@ -148,6 +141,7 @@ func (s *Server) proxyHandler(c *gin.Context) {
 	proxy.ServeHTTP(c.Writer, c.Request)
 }
 
-func (s *Server) Start() {
-	s.router.Run(":8080")
+func (s *Server) Start(cert string, key string) {
+
+	s.router.RunTLS(":443", cert, key)
 }

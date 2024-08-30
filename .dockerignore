@@ -1,3 +1,4 @@
 # Ignore the manifests folder and the stark8 binary
 manifests
 stark8
+**/.DS_Store

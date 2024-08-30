@@ -54,7 +54,6 @@ type getStark8sRequest struct {
 }
 
 func (s *Server) getStark8sRequest(c *gin.Context) {
-	// TODO: add service handler
 	req := &getStark8sRequest{
 		PageNumber: 1,
 	}

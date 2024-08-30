@@ -26,8 +26,6 @@ func (s *Server) getModalNamespacesRequest(c *gin.Context) {
 		return
 	}
 
-	// namespaces := []string{"default", "kube-system"}
-
 	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.ModalBodyNamespacesComponent(namespaces))
 	c.Render(http.StatusOK, r)
 }
@@ -40,8 +38,6 @@ func (s *Server) getModalServicesRequest(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
-	// services := []string{"svc1", "svc2"}
 
 	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.ModalBodyServicesComponent(namespace, services))
 	c.Render(http.StatusOK, r)
@@ -57,20 +53,19 @@ func (s *Server) getModalSettingsRequest(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
-	// ports := []v1.ServicePort{{
-	// 	Name: "http",
-	// 	Port: 80,
-	// }}
 	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.ModalBodySettingsComponent(namespace, service, ports, errors, values))
 	c.Render(http.StatusOK, r)
 }
 
 func (s *Server) getLoginUserRequest(c *gin.Context) {
-	// TODO: add service handler
 	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.Login())
 	c.Render(http.StatusOK, r)
 
+}
+
+func (s *Server) getSignUpUserRequest(c *gin.Context) {
+	r := ginrender.New(c.Request.Context(), http.StatusOK, templates.Signup())
+	c.Render(http.StatusOK, r)
 }
 
 func (s *Server) getLogosRequest(c *gin.Context) {

@@ -40,9 +40,9 @@ spec:
   selector:
     app: stark8
   ports:
-  - name: http
-    port: 80
-    targetPort: 8080
+  - name: https
+    port: 443
+    targetPort: 443
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -67,7 +67,7 @@ spec:
         image: localhost/stark8:v0.0.1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 443
         envFrom:
         - configMapRef:
             name: stark8
@@ -87,7 +87,7 @@ metadata:
 data:
   app.env: |
     TOKEN_SIMMETRIC_KEY=12345678901234567890123456789012
-    HOST=stark8.127.0.0.1.nip.io:8080
+    HOST=stark8.127.0.0.1.nip.io:8443
     TOKEN_DURATION=15m
     GIN_MODE=release
 
