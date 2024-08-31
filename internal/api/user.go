@@ -52,7 +52,6 @@ func (s *Server) loginUserRequest(c *gin.Context) {
 	subdomainHost := strings.Split(s.config.Hostname, ":")[0]
 
 	c.SetCookie("stark8.token", accessToken, 3600, "/", "."+subdomainHost, true, true)
-	//// HERE
 	c.Header("HX-Redirect", "/") // Redirect to the home page
 	c.JSON(http.StatusOK, loginUserResponse{
 		AccessToken: accessToken,
