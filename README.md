@@ -2,6 +2,10 @@
 
 Stark8 is a project born for learning purpose, it's a GOTTH (Go, Templ, Tailwind CSS, HTMX) stack example that uses the official Kubernetes Go client to interact with the Kubernetes API.
 
+
+https://github.com/user-attachments/assets/f8952e2f-a449-4d47-8132-831e23cd3449
+
+
 ## Problem Overview
 
 In typical Kubernetes deployments, services are often exposed through an Ingress resource. This approach can lead to challenges, such as:
