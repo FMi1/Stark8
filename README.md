@@ -52,8 +52,9 @@ It uses [Gin](https://github.com/gin-gonic/gin) for the web framework, [Viper](h
 
 This is early development version. I am currently considering:
 
+- [x] HTTPS with self sign certs
 - [ ] Edit and Delete service
-- [ ] Modify manifests adding PVC
+- [ ] Modify manifests adding PVC, ingress
 - [ ] RBAC
 - [ ] User Management
 - [ ] Port Agnostic
