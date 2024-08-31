@@ -83,6 +83,9 @@ func modifyResponse(r *http.Response, name string, backendURL *url.URL, hostname
 				locationURL.Host = name + "." + hostname
 			}
 			if locationURL.Scheme != "" {
+				if locationURL.Scheme != backendURL.Scheme {
+					backendURL.Scheme = locationURL.Scheme
+				}
 				locationURL.Scheme = "https"
 			}
 			r.Header.Set("Location", locationURL.String())
