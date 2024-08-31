@@ -1,5 +1,6 @@
 # Stark8 - Kubernetes Native Web Application Secure Access
 
+Stark8 is a project born for learning purpose, it's a GOTTH (Go, Templ, Tailwind CSS, HTMX) stack example that uses the official Kubernetes Go client to interact with the Kubernetes API.
 
 ## Problem Overview
 
