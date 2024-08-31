@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"strings"
 )
 
 // Proxy represents a reverse proxy with its associated URL
@@ -43,7 +42,6 @@ func (p *ProxyHub) NewProxy(name string, urlStr string, logo string) error {
 	}
 	transport := http.DefaultTransport.(*http.Transport).Clone()
 	transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-
 	proxy := &httputil.ReverseProxy{
 		Transport: transport,
 		Rewrite: func(r *httputil.ProxyRequest) {
@@ -53,7 +51,6 @@ func (p *ProxyHub) NewProxy(name string, urlStr string, logo string) error {
 			return modifyResponse(r, name, backendURL, p.hostname)
 		},
 	}
-
 	p.hub[name] = Proxy{
 		url:   backendURL,
 		proxy: proxy,
@@ -67,9 +64,9 @@ func (p *ProxyHub) NewProxy(name string, urlStr string, logo string) error {
 
 // rewriteRequest sets up the request headers and URL for the reverse proxy
 func rewriteRequest(r *httputil.ProxyRequest, backendURL *url.URL) {
-	r.SetXForwarded()
 	r.SetURL(backendURL)
 	r.Out.Header = r.In.Header
+	r.SetXForwarded()
 }
 
 // modifyResponse handles response modification for redirects
@@ -77,34 +74,19 @@ func modifyResponse(r *http.Response, name string, backendURL *url.URL, hostname
 	if isRedirect(r.StatusCode) {
 		location := r.Header.Get("Location")
 		locationURL, err := url.Parse(location)
-		log.Println("Redirect Location:", locationURL.String(), "Backend:", backendURL.String())
 		if err != nil {
 			log.Printf("Error parsing Location header: %v\n", err)
 			return err
 		}
-		if locationURL.Scheme != backendURL.Scheme {
-			backendURL.Scheme = locationURL.Scheme
-		}
-		if locationURL.Host == backendURL.Host {
-			locationURL.Host = name + "." + hostname
-			locationURL.Scheme = "https" // Cambia schema in base a TLS
+		if locationURL.Host != "" {
+			if locationURL.Host == backendURL.Host {
+				locationURL.Host = name + "." + hostname
+			}
+			if locationURL.Scheme != "" {
+				locationURL.Scheme = "https"
+			}
 			r.Header.Set("Location", locationURL.String())
 		}
-	}
-	//// TODO: rimuovi l'attributo Secure perche siamo in http per ora
-	// Modifica i cookie `Set-Cookie` per rimuovere l'attributo `Secure`
-	setCookies := r.Header.Values("Set-Cookie")
-	for i, cookie := range setCookies {
-		// Se il cookie contiene l'attributo Secure, lo rimuove
-		if strings.Contains(cookie, "Secure") {
-			modifiedCookie := strings.ReplaceAll(cookie, "; Secure", "")
-			setCookies[i] = modifiedCookie
-		}
-	}
-
-	// Se è stata fatta una modifica, aggiorna l'header `Set-Cookie`
-	if len(setCookies) > 0 {
-		r.Header["Set-Cookie"] = setCookies
 	}
 
 	return nil

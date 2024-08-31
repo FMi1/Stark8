@@ -45,4 +45,21 @@ Stark8 operates as a reverse proxy within your Kubernetes cluster. It authentica
 
 It uses [Gin](https://github.com/gin-gonic/gin) for the web framework, [Viper](https://github.com/spf13/viper) for configuration, [Paseto](https://github.com/o1egl/paseto) for token authentication, [Tailwind CSS](https://tailwindcss.com/) for styles and [Htmx](https://htmx.org/) for ajax requests.
 
+
+---
+
+# Roadmap
+
+This is early development version. I am currently considering:
+
+- [ ] Edit and Delete service
+- [ ] Modify manifests adding PVC
+- [ ] RBAC
+- [ ] User Management
+- [ ] Port Agnostic
+- [ ] Helm Chart
+- [ ] OIDC
+
+
+---
 ## Installation

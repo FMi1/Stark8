@@ -143,5 +143,5 @@ func (s *Server) proxyHandler(c *gin.Context) {
 
 func (s *Server) Start(cert string, key string) {
 
-	s.router.RunTLS(":443", cert, key)
+	s.router.RunTLS(":8443", cert, key)
 }

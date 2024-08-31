@@ -8,6 +8,7 @@ import (
 	"crypto/x509/pkix"
 	"encoding/pem"
 	"math/big"
+	"net"
 	"os"
 	"time"
 )
@@ -41,8 +42,8 @@ func GenerateSelfSignedCert() (certFile string, keyFile string, err error) {
 	}
 
 	// Add IP and DNS names for the certificate.
-	// template.IPAddresses = []net.IP{net.ParseIP("127.0.0.1")}
-	template.DNSNames = []string{"localhost", "stark8.127.0.0.1.nip.io", "*.stark8.127.0.0.1.nip.io"}
+	template.IPAddresses = []net.IP{net.ParseIP("127.0.0.1")}
+	template.DNSNames = []string{"localhost", "stark8.127.0.0.1.nip.io", "*.stark8.127.0.0.1.nip.io", "stark8.127.0.0.1.nip.io:8443", "*.stark8.127.0.0.1.nip.io:8443"}
 
 	// Create the certificate.
 	derBytes, err := x509.CreateCertificate(rand.Reader, &template, &template, &priv.PublicKey, priv)

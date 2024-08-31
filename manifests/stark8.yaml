@@ -41,8 +41,8 @@ spec:
     app: stark8
   ports:
   - name: https
-    port: 443
-    targetPort: 443
+    port: 8443
+    targetPort: 8443
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -67,7 +67,7 @@ spec:
         image: localhost/stark8:v0.0.1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 443
+        - containerPort: 8443
         envFrom:
         - configMapRef:
             name: stark8
